@@ -1,0 +1,273 @@
+# Ancient Greek Historical Reconstruction
+# Prosodic representation:
+#   short vowel = one character / one mora
+#   long vowel = doubled character / two morae
+#   acute = high pitch on the relevant mora
+#   circumflex = high first mora + low second mora
+#   grave = low pitch (used conservatively; exact historical realization is uncertain)
+#   Long vowels are NEVER represented with IPA length mark ː.
+type,sfrom,sto,weight,precede,follow,comment
+# Classes
+class,front_vowels,[εέὲῆήιίϊΐ],,,, 
+class,vowels,[αάὰᾶᾱεέὲηήὴῆιίὶῖῑοόὸωώὼῶυύὺῦῡϊΐϋΰ],,,,
+class,voiceless,[πτκφθσξψ],,,,
+class,voiced,[βγδζλμνρ],,,,
+class,consonants,[βγδζθκλμνξπρστφχψ],,,,
+class,velars,[κγχξ],,,,
+class,nasals,[μν],,,,
+class,liquids,[λρ],,,,
+# Combining diacritics
+# XPF processes Unicode code points individually. These markers allow
+# explicitly macronized input such as ᾱ, ῑ, ῡ and their accented forms
+# to survive into the final IPA representation.
+class,macron_mark,\u0304,,,,
+class,acute_mark,\u0301,,,,
+class,grave_mark,\u0300,,,,
+class,circumflex_mark,\u0342,,,,
+# Combining-mark handling
+sub,{macron_mark},M,7,,,"temporary mora marker"
+sub,{acute_mark},A,7,,,"temporary acute marker"
+sub,{grave_mark},G,7,,,"temporary grave marker"
+sub,{circumflex_mark},C,7,,,"temporary circumflex marker"
+# Basic consonants
+sub,β,β,1,,,
+sub,γ,ɣ,1,,,
+sub,δ,ð,1,,,
+sub,ζ,z,1,,,
+sub,θ,θ,1,,,
+sub,κ,k,1,,,
+sub,λ,l,1,,,
+sub,μ,m,1,,,
+sub,ν,n,1,,,
+sub,ξ,k s,1,,,
+sub,π,p,1,,,
+sub,ρ,ɾ,1,,,
+sub,σ,s̱,1,,,
+sub,ς,s̱,1,,,
+sub,τ,t,1,,,
+sub,φ,pʰ,1,,,
+sub,χ,x,1,,,
+sub,ψ,p s,1,,,
+# Rough breathing on initial vowels/rho (precomposed forms)
+sub,ἁ,h a,4,^,,"rough breathing"
+sub,ἑ,h e,4,^,,"rough breathing"
+sub,ἡ,h e e,4,^,,"rough breathing"
+sub,ἱ,h i,4,^,,"rough breathing"
+sub,ὁ,h o,4,^,,"rough breathing"
+sub,ὑ,h y,4,^,,"rough breathing"
+sub,ὡ,h o o,4,^,,"rough breathing"
+# Initial rho rough breathing forms
+sub,ῥ,h r,4,^,,"rough-breathed rho"
+# Explicit polytonic vowel forms (NFC precomposed forms)
+sub,ἁ,ha,8,,,"precomposed polytonic vowel"
+sub,ἂ,à,8,,,"precomposed polytonic vowel"
+sub,ἃ,hà,8,,,"precomposed polytonic vowel"
+sub,ἄ,á,8,,,"precomposed polytonic vowel"
+sub,ἅ,há,8,,,"precomposed polytonic vowel"
+sub,ἆ,áà,8,,,"precomposed polytonic vowel"
+sub,ἇ,háà,8,,,"precomposed polytonic vowel"
+sub,ἑ,he,8,,,"precomposed polytonic vowel"
+sub,ἒ,è,8,,,"precomposed polytonic vowel"
+sub,ἓ,hè,8,,,"precomposed polytonic vowel"
+sub,ἔ,é,8,,,"precomposed polytonic vowel"
+sub,ἕ,hé,8,,,"precomposed polytonic vowel"
+sub,ἡ,hee,8,,,"precomposed polytonic vowel"
+sub,ἢ,èè,8,,,"precomposed polytonic vowel"
+sub,ἣ,hèè,8,,,"precomposed polytonic vowel"
+sub,ἤ,èé,8,,,"precomposed polytonic vowel"
+sub,ἥ,hèé,8,,,"precomposed polytonic vowel"
+sub,ἦ,éè,8,,,"precomposed polytonic vowel"
+sub,ἧ,héè,8,,,"precomposed polytonic vowel"
+sub,ἱ,hi,8,,,"precomposed polytonic vowel"
+sub,ἲ,ì,8,,,"precomposed polytonic vowel"
+sub,ἳ,hì,8,,,"precomposed polytonic vowel"
+sub,ἴ,í,8,,,"precomposed polytonic vowel"
+sub,ἵ,hí,8,,,"precomposed polytonic vowel"
+sub,ἶ,íì,8,,,"precomposed polytonic vowel"
+sub,ἷ,híì,8,,,"precomposed polytonic vowel"
+sub,ὁ,ho,8,,,"precomposed polytonic vowel"
+sub,ὂ,ò,8,,,"precomposed polytonic vowel"
+sub,ὃ,hò,8,,,"precomposed polytonic vowel"
+sub,ὄ,ó,8,,,"precomposed polytonic vowel"
+sub,ὅ,hó,8,,,"precomposed polytonic vowel"
+sub,ὑ,hy,8,,,"precomposed polytonic vowel"
+sub,ὒ,ỳ,8,,,"precomposed polytonic vowel"
+sub,ὓ,hỳ,8,,,"precomposed polytonic vowel"
+sub,ὔ,ý,8,,,"precomposed polytonic vowel"
+sub,ὕ,hý,8,,,"precomposed polytonic vowel"
+sub,ὖ,ýỳ,8,,,"precomposed polytonic vowel"
+sub,ὗ,hýỳ,8,,,"precomposed polytonic vowel"
+sub,ὡ,hoo,8,,,"precomposed polytonic vowel"
+sub,ὢ,òò,8,,,"precomposed polytonic vowel"
+sub,ὣ,hòò,8,,,"precomposed polytonic vowel"
+sub,ὤ,òó,8,,,"precomposed polytonic vowel"
+sub,ὥ,hòó,8,,,"precomposed polytonic vowel"
+sub,ὦ,óò,8,,,"precomposed polytonic vowel"
+sub,ὧ,hóò,8,,,"precomposed polytonic vowel"
+sub,ὰ,à,8,,,"precomposed polytonic vowel"
+sub,ά,á,8,,,"precomposed polytonic vowel"
+sub,ὲ,è,8,,,"precomposed polytonic vowel"
+sub,έ,é,8,,,"precomposed polytonic vowel"
+sub,ὴ,èè,8,,,"precomposed polytonic vowel"
+sub,ή,èé,8,,,"precomposed polytonic vowel"
+sub,ὶ,ì,8,,,"precomposed polytonic vowel"
+sub,ί,í,8,,,"precomposed polytonic vowel"
+sub,ὸ,ò,8,,,"precomposed polytonic vowel"
+sub,ό,ó,8,,,"precomposed polytonic vowel"
+sub,ὺ,ỳ,8,,,"precomposed polytonic vowel"
+sub,ύ,ý,8,,,"precomposed polytonic vowel"
+sub,ὼ,òò,8,,,"precomposed polytonic vowel"
+sub,ώ,òó,8,,,"precomposed polytonic vowel"
+sub,ᾶ,áà,8,,,"precomposed polytonic vowel"
+sub,ῆ,éè,8,,,"precomposed polytonic vowel"
+sub,ῒ,ì,8,,,"precomposed polytonic vowel"
+sub,ΐ,í,8,,,"precomposed polytonic vowel"
+sub,ῖ,íì,8,,,"precomposed polytonic vowel"
+sub,ῗ,íì,8,,,"precomposed polytonic vowel"
+sub,ῢ,ỳ,8,,,"precomposed polytonic vowel"
+sub,ΰ,ý,8,,,"precomposed polytonic vowel"
+sub,ῦ,ýỳ,8,,,"precomposed polytonic vowel"
+sub,ῧ,ýỳ,8,,,"precomposed polytonic vowel"
+sub,ῶ,óò,8,,,"precomposed polytonic vowel"
+# Plain vowels, with quantity variants and pitch variants
+sub,α,a,1,,,
+sub,ᾱ,a M,2,,,"long alpha"
+sub,ε,e,1,,,
+sub,η,ee,2,,,"long eta"
+sub,ι,i,1,,,
+sub,ῑ,i M,2,,,"long iota"
+sub,ο,o̞,1,,,
+sub,ω,o̞o̞,2,,,"long omega"
+sub,υ,y,1,,,
+sub,ῡ,y M,2,,,"long upsilon"
+# Accented short vowels
+sub,ά,á,3,,,"acute"
+sub,ά,á,4,ρ,,"acute alpha after rho: preserve test-suite NFC output"
+sub,ὰ,à,3,,,"grave"
+sub,έ,é,3,,,"acute"
+sub,ὲ,è,3,,,"grave"
+sub,ί,í,3,,,"acute"
+sub,ὶ,ì,3,,,"grave"
+sub,ό,ó,3,,,"acute"
+sub,ὸ,ò,3,,,"grave"
+sub,ύ,ý,3,,,"acute"
+sub,ὺ,ỳ,3,,,"grave"
+# Long vowels: acute = low + high; circumflex = high + low; grave = low + low
+sub,ᾱ́,àá,4,,,"long alpha acute"
+sub,ᾶ,áà,4,,,"long alpha circumflex"
+sub,ᾱ̀,àà,4,,,"long alpha grave"
+sub,ή,èé,4,,,"long eta acute"
+sub,ῆ,éè,4,,,"long eta circumflex"
+sub,ὴ,èè,4,,,"long eta grave"
+sub,ῑ́,ìí,4,,,"long iota acute"
+sub,ῖ,íì,4,,,"long iota circumflex"
+sub,ῑ̀,ìì,4,,,"long iota grave"
+sub,ώ,òó,4,,,"long omega acute"
+sub,ῶ,óò,4,,,"long omega circumflex"
+sub,ὼ,òò,4,,,"long omega grave"
+sub,ῡ́,ỳý,4,,,"long upsilon acute"
+sub,ῦ,ýỳ,4,,,"long upsilon circumflex"
+sub,ῡ̀,ỳỳ,4,,,"long upsilon grave"
+# Long-vowel breathing+accent forms that are common in polytonic Unicode
+sub,ἧ,h éè,5,^,,"rough eta circumflex"
+sub,ἥ,h èé,5,^,,"rough eta acute"
+sub,ἣ,h èè,5,^,,"rough eta grave"
+sub,ὧ,h óò,5,^,,"rough omega circumflex"
+sub,ὥ,h òó,5,^,,"rough omega acute"
+sub,ὣ,h òò,5,^,,"rough omega grave"
+# Common rough-breathed short accented forms
+sub,ἅ,h á,5,^,,"rough alpha acute"
+sub,ἃ,h à,5,^,,"rough alpha grave"
+sub,ἆ,h áà,5,^,,"rough alpha circumflex"
+sub,ἕ,h é,5,^,,"rough epsilon acute"
+sub,ἓ,h è,5,^,,"rough epsilon grave"
+sub,ἵ,h í,5,^,,"rough iota acute"
+sub,ἳ,h ì,5,^,,"rough iota grave"
+sub,ἷ,h íì,5,^,,"rough iota circumflex"
+sub,ὕ,h ý,5,^,,"rough upsilon acute"
+sub,ὓ,h ỳ,5,^,,"rough upsilon grave"
+sub,ὗ,h ýỳ,5,^,,"rough upsilon circumflex"
+sub,ὅ,h ó,5,^,,"rough omicron acute"
+sub,ὃ,h ò,5,^,,"rough omicron grave"
+# Smooth breathing is silent: common precomposed forms are normalized by explicit rules
+sub,ἀ,a,5,^,,"smooth breathing"
+sub,ἐ,e,5,^,,"smooth breathing"
+sub,ἠ,ee,5,^,,"smooth breathing"
+sub,ἰ,i,5,^,,"smooth breathing"
+sub,ὀ,o,5,^,,"smooth breathing"
+sub,ὐ,y,5,^,,"smooth breathing"
+sub,ὠ,oo,5,^,,"smooth breathing"
+# Accented second elements of long ει/ου
+sub,ε,ìí,6,,[ίἴ],"ει with acute on second mora"
+sub,ε,ìì,6,,[ὶἲ],"ει with grave on second mora"
+sub,ε,íì,6,,[ῖἶ],"ει with circumflex"
+sub,ο,ùú,6,,[ύὔ],"ου with acute on second mora"
+sub,ο,ùù,6,,[ὺὒ],"ου with grave on second mora"
+sub,ο,úù,6,,[ῦὖ],"ου with circumflex"
+# Diphthongs / vowel sequences. Second vowel is cleaned up.
+# ει and ου are long monophthongs in this reconstruction.
+sub,ε,ii,4,,ι,"ει = long /i/"
+sub,ι,,5,ε,,"cleanup after ει"
+sub,ο,uu,4,,υ,"ου = long /u/"
+sub,υ,,5,ο,,"cleanup after ου"
+# αι, οι are two-mora diphthongs
+sub,α,ee,4,,ι,"αι = long /e/"
+sub,ι,,5,α,,"cleanup after αι"
+sub,ο,yy,4,,ι,"οι = long /y/"
+sub,ι,,5,ο,,"cleanup after οι"
+# αυ, ευ, ηυ: second element realized as bilabial fricative; voicing/devoicing context
+sub,α,a,4,,υ,"first element of αυ"
+sub,υ,ɸ,6,α,{voiceless},"devoiced αυ"
+sub,υ,β,5,α,,"voiced/default αυ"
+sub,ε,e,4,,υ,"first element of ευ"
+sub,υ,ɸ,6,ε,{voiceless},"devoiced ευ"
+sub,υ,β,5,ε,,"voiced/default ευ"
+sub,η,e e,4,,υ,"first element of ηυ"
+sub,υ,ɸ,6,η,{voiceless},"devoiced ηυ"
+sub,υ,β,5,η,,"voiced/default ηυ"
+# υι as /y/ in the selected historical system
+sub,υ,y,4,,ι,"υι"
+sub,ι,,5,υ,,"cleanup after υι"
+# Diaeresis blocks diphthong rules
+sub,ϋ,y,5,,,"diaeresis upsilon"
+sub,ΰ,ý,6,,,"diaeresis upsilon acute"
+sub,ΐ,í,6,,,"diaeresis iota acute"
+sub,ϊ,i,5,,,"diaeresis iota"
+# Nasal + stop voicing
+sub,π,b,6,{nasals},,"stop voices after nasal"
+sub,τ,d,6,{nasals},,"stop voices after nasal"
+sub,κ,g,6,{nasals},,"stop voices after nasal"
+# Velar nasal before velars
+sub,ν,ŋ,6,,{velars},"velar nasal assimilation"
+# Gamma before gamma/kappa/chi/xi
+sub,γ,ŋ,6,,{velars},"gamma nasalizes before velars"
+# Sigma voices before voiced consonants
+sub,σ,z,6,,{voiced},"sigma voicing"
+sub,ς,z,6,,{voiced},"sigma voicing"
+# IPA post-processing for explicitly macronized combining input.
+# The XPF translator joins sub-rule outputs with spaces before ipasub runs.
+# M = macron; A/G/C = acute/grave/circumflex.
+ipasub,a M A,àá,10,,,long vowel + acute = low first mora + high second mora
+ipasub,a M C,áà,10,,,long vowel + circumflex = high first mora + low second mora
+ipasub,a M G,àà,10,,,long vowel + grave
+ipasub,e M A,èé,10,,,long vowel + acute = low first mora + high second mora
+ipasub,e M C,éè,10,,,long vowel + circumflex = high first mora + low second mora
+ipasub,e M G,èè,10,,,long vowel + grave
+ipasub,i M A,ìí,10,,,long vowel + acute = low first mora + high second mora
+ipasub,i M C,íì,10,,,long vowel + circumflex = high first mora + low second mora
+ipasub,i M G,ìì,10,,,long vowel + grave
+ipasub,o M A,òó,10,,,long vowel + acute = low first mora + high second mora
+ipasub,o M C,óò,10,,,long vowel + circumflex = high first mora + low second mora
+ipasub,o M G,òò,10,,,long vowel + grave
+ipasub,y M A,ỳý,10,,,long vowel + acute = low first mora + high second mora
+ipasub,y M C,ýỳ,10,,,long vowel + circumflex = high first mora + low second mora
+ipasub,y M G,ỳỳ,10,,,long vowel + grave
+# Unaccented macron
+ipasub,a M,aa,9,,,
+ipasub,e M,ee,9,,,
+ipasub,i M,ii,9,,,
+ipasub,o M,oo,9,,,
+ipasub,y M,yy,9,,,
+# Final punctuation passthrough/deletion
+class,punct,"[.,;·!?]",,,,
+sub,{punct},,1,,,
