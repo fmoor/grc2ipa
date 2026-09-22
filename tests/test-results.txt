@@ -17,9 +17,10 @@ grc = 'γείνεσθαι', ipa = 'ʝiínɛs̱θɛɛ'
     def test_γ_before_front_vowels(grc: str, ipa: str):
         ''' SGPNTG 4.1.1, pg 37 '''
 >       assert ipa == transcribe(grc)
-E       AssertionError: assert 'ʝiínɛs̱θɛɛ' == 'ɣìíínes̱θee'
+E       AssertionError: assert 'ʝiínɛs̱θɛɛ' == 'ʝiíínɛs̱θɛɛ'
 E         
-E         - ɣìíínes̱θee
+E         - ʝiíínɛs̱θɛɛ
+E         ?   --
 E         + ʝiínɛs̱θɛɛ
 
 tests/test_grc_sgpntg_historical.py:29: AssertionError
