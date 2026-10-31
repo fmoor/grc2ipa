@@ -197,11 +197,11 @@ sub,{sigma},z̠,10,,{voiced},"sigma before voiced consonant"
 # the second as context, then delete the second grapheme with a cleanup rule.
 # This is the same architecture used in the supplied Modern Greek rules.
 
-class,i-digraph,[ιίί],,,,
+class,i-digraph,[ιίίῖ],,,,
 class,u-digraph,[υύύ],,,, 
 
 sub,ε,i,12,ζ,{i-digraph},"short ει in ἐγγίζειν"
-sub,ε,ˈiː,12,,[ίί],"accented ei"
+sub,ε,ˈiː,12,,[ίίῖ],"accented ei, including circumflex iota"
 sub,ε,iː,8,,{i-digraph},"ei"
 sub,{i-digraph},,11,ε,,"cleanup after ei; outranks acute-iota"
 

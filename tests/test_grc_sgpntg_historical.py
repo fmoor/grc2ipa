@@ -21,7 +21,11 @@ def transcribe(grc: str) -> str:
     ],
 )
 def test_γ(grc: str, ipa: str):
-    """SGPNTG 4.1.1, pg 37"""
+    """
+    SGPNTG 4.1.1, pg 37
+
+    Generally, the consonant γ is pronounced as IPA ɣ.
+    """
     assert ipa == transcribe(grc)
 
 
@@ -34,7 +38,12 @@ def test_γ(grc: str, ipa: str):
     ],
 )
 def test_γ_before_front_vowels(grc: str, ipa: str):
-    """SGPNTG 4.1.1, pg 37"""
+    """
+    SGPNTG 4.1.1, pg 37
+
+    Before front vowels, namely ι, ει, υ, οι, η, ηι, ῃ, ε, or αι, γ is
+    pronounced as IPA ʝ.
+    """
     assert ipa == transcribe(grc)
 
 
@@ -47,7 +56,12 @@ def test_γ_before_front_vowels(grc: str, ipa: str):
     ],
 )
 def test_γ_after_nasal_consonant(grc: str, ipa: str):
-    """SGPNTG 4.1.1, pg 39"""
+    """
+    SGPNTG 4.1.1, pg 39
+
+    After a nasal consonant, namely in the sequences (γ)γ or (ν)γ, γ is
+    pronounced as the IPA ɡ.
+    """
     assert ipa == transcribe(grc)
 
 
@@ -60,7 +74,13 @@ def test_γ_after_nasal_consonant(grc: str, ipa: str):
     ],
 )
 def test_γ_after_nasal_consonant_and_before_front_vowels(grc: str, ipa: str):
-    """SGPNTG 4.1.1, pg 40"""
+    """
+    SGPNTG 4.1.1, pg 40
+
+    After a nasal consonant and before front vowels, namely in the sequences
+    (γ)γ and (ν)γ followed by ι, ει, υ, οι, η, ηι, ῃ, ε, or αι then γ is
+    pronounced as IPA ɟ.
+    """
     assert ipa == transcribe(grc)
 
 
@@ -68,10 +88,16 @@ def test_γ_after_nasal_consonant_and_before_front_vowels(grc: str, ipa: str):
     "grc,ipa",
     [
         ("σάλπιγγα", "s̠ˈalpiŋɡa"),
+        ("συγκαλεῖν", "s̠yŋkalˈiːn"),
+        ("τυγχάνω", "tyŋkʰˈano̞ː"),
     ],
 )
 def test_γ_before_velar_consonants(grc: str, ipa: str):
-    """SGPNTG 4.1.1, pg 41"""
+    """
+    SGPNTG 4.1.1, pg 41
+
+    Before velar consonants, namely γ, κ, χ, ξ, the consonant γ is pronounced as ŋ.
+    """
     assert ipa == transcribe(grc)
 
 
