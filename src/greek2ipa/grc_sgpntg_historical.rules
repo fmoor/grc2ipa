@@ -15,9 +15,8 @@
 # contextual rules on the first grapheme and cleanup rules on the second,
 # following the structure of the Modern Greek XPF grammar.
 #
-# NOTE: the current test suite expects final οι in λόγοι as /y/, whereas the
-# supplied reconstruction table lists οι as /yː/. The rule below follows the
-# current test suite; that discrepancy should be resolved before finalizing.
+# οι is represented as long /yː/, following the supplied reconstruction
+# table and the updated verification cases.
 
 type,sfrom,sto,weight,precede,follow,comment
 
@@ -30,6 +29,7 @@ class,voiceless,[πκτφθχξψσ],,,,
 class,velar,[γκχξ],,,,
 class,nasal,[μνγ],,,,
 class,sigma,[σς],,,,
+class,consonant,[βγδζθκλμνξπρσςτφχψ],,,,
 
 # Basic grapheme classes
 class,a,[α],,,,
@@ -77,7 +77,7 @@ class,oː-circ,[ῶ],,,,
 
 sub,{a-acute},ˈa,10,,,"acute alpha; mark accented nucleus"
 sub,{a-circ},ˈaː,10,,,"circumflex alpha; mark accented nucleus"
-sub,{e-acute},ˈε,10,,,"acute epsilon; mark accented nucleus"
+sub,{e-acute},ˈɛ,10,,,"acute epsilon; mark accented nucleus"
 sub,{eː-acute},ˈeː,10,,,"acute eta; mark accented nucleus"
 sub,{eː-circ},ˈeː,10,,,"circumflex eta; mark accented nucleus"
 sub,{i-acute},ˈi,10,,,"acute iota; mark accented nucleus"
@@ -150,12 +150,6 @@ sub,ῂ,eː,10,,,"grave dropped"
 sub,ῲ,o̞ː,10,,,"grave dropped"
 
 # ----------------------------------------------------------------------
-# Contextual orthographic exception (not accent relocation)
-# In the tested ἐγγ- forms, initial ἐ is represented by ε rather than ɛ.
-# ----------------------------------------------------------------------
-sub,ἐ,ε,24,,γγ,"initial epsilon in tested ἐγγ- forms"
-
-# ----------------------------------------------------------------------
 # Consonants
 # ----------------------------------------------------------------------
 sub,{beta},β,2,,,"beta"
@@ -205,20 +199,20 @@ sub,ε,ˈiː,12,,[ίίῖ],"accented ei, including circumflex iota"
 sub,ε,iː,8,,{i-digraph},"ei"
 sub,{i-digraph},,11,ε,,"cleanup after ei; outranks acute-iota"
 
-sub,ο,ˈy,12,,[ίί],"accented oi"
-sub,ο,y,8,,{i-digraph},"oi"
-sub,{i-digraph},,8,ο,,"cleanup after oi"
+sub,ο,ˈyː,12,,[ίί],"accented oi"
+sub,ο,yː,8,,{i-digraph},"oi"
+sub,{i-digraph},,14,ο,,"cleanup after oi; outranks standalone accented iota"
 
-sub,α,ˈɛː,12,,[ίί],"accented ai"
+sub,α,ˈɛː,12,,[ίίῖ],"accented ai"
 sub,α,ɛː,8,,{i-digraph},"ai"
-sub,{i-digraph},,8,α,,"cleanup after ai"
+sub,{i-digraph},,14,α,,"cleanup after ai; outranks standalone accented iota"
 
 sub,η,eː,8,,ι,"eta-iota"
 sub,ι,,8,η,,"cleanup after eta-iota"
 
 sub,υ,ˈy,12,,[ίί],"accented upsilon-iota"
 sub,υ,y,8,,ι,"upsilon-iota"
-sub,ι,,8,υ,,"cleanup after upsilon-iota"
+sub,ι,,14,υ,,"cleanup after upsilon-iota"
 
 sub,ο,ˈu,12,,[ύύ],"accented ou"
 sub,ο,u,8,,υ,"ou"
@@ -230,10 +224,10 @@ sub,α,ˈaɸ,13,,[ύύ]{voiceless},"accented au before voiceless consonant"
 sub,α,ˈaβ,13,,[ύύ]{voiced},"accented au before voiced consonant"
 sub,α,ˈaβ,13,,[ύύ][αεηιουωυ],"accented au before vowel"
 sub,α,ˈaɸ,13,,[ύύ]$,"accented au final"
-sub,ε,ˈεɸ,13,,[ύύ]{voiceless},"accented eu before voiceless consonant"
-sub,ε,ˈεβ,13,,[ύύ]{voiced},"accented eu before voiced consonant"
-sub,ε,ˈεβ,13,,[ύύ][αεηιουωυ],"accented eu before vowel"
-sub,ε,ˈεɸ,13,,[ύύ]$,"accented eu final"
+sub,ε,ˈɛɸ,13,,[ύύ]{voiceless},"accented eu before voiceless consonant"
+sub,ε,ˈɛβ,13,,[ύύ]{voiced},"accented eu before voiced consonant"
+sub,ε,ˈɛβ,13,,[ύύ][αεηιουωυ],"accented eu before vowel"
+sub,ε,ˈɛɸ,13,,[ύύ]$,"accented eu final"
 sub,η,ˈeːɸ,13,,[ύύ]{voiceless},"accented eta-upsilon before voiceless consonant"
 sub,η,ˈeːβ,13,,[ύύ]{voiced},"accented eta-upsilon before voiced consonant"
 sub,η,ˈeːβ,13,,[ύύ][αεηιουωυ],"accented eta-upsilon before vowel"
@@ -272,8 +266,7 @@ sub,υ,,10,η,$,"cleanup final upsilon after eta-upsilon"
 sub,{i},i,2,,,
 sub,{y},y,2,,,
 sub,{eː},eː,2,,,
-sub,{e},ɛ,3,ε[ίί]ν,,"epsilon after accented ει before nu"
-sub,{e},ε,2,,,
+sub,{e},ɛ,2,,,"epsilon: open-mid front unrounded vowel"
 sub,{a},a,2,,,
 sub,ᾱ,aː,2,,,"long alpha"
 sub,ᾳ,aː,2,,,"alpha with iota subscript"
@@ -325,3 +318,20 @@ sub,{u-digraph},,14,η,$,"cleanup final υ/ύ after eta-upsilon"
 # In ἀγγαρεύω the accented ευ nucleus is marked in place; final ω has a
 # short realization in this test form.
 sub,{oː},o̞,14,ε{u-digraph},$,"ἀγγαρεύω: short final omega in this test form"
+
+
+# ----------------------------------------------------------------------
+# Further tests: palatalized velars and kappa before diphthongs
+# ----------------------------------------------------------------------
+
+# κ is palatalized before οι and αι as well as before single front vowels.
+# The first member of these diphthongs (ο / α) is not itself a front vowel,
+# so the ordinary {front} lookahead cannot detect them.
+sub,{kappa},c,11,,ο{i-digraph},"kappa before οι"
+sub,{kappa},c,11,,α{i-digraph},"kappa before αι"
+
+# οι is position-independent: the general oi rule above applies everywhere.
+
+# Collapse the written double sigma in κηρύσσω to a single /s̠/, as expected
+# by the current verification case.
+sub,{sigma},,14,σ,,"collapse second sigma in σσ"

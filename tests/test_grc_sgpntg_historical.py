@@ -33,8 +33,8 @@ def test_γ(grc: str, ipa: str):
     "grc,ipa",
     [
         ("γείνεσθαι", "ʝˈiːnɛs̠tʰɛː"),
-        ("ἐγένετο", "ɛʝˈεnεto̞"),
-        ("λόγοι", "lˈo̞ʝy"),
+        ("ἐγένετο", "ɛʝˈɛnɛto̞"),
+        ("λόγοι", "lˈo̞ʝyː"),
     ],
 )
 def test_γ_before_front_vowels(grc: str, ipa: str):
@@ -51,8 +51,8 @@ def test_γ_before_front_vowels(grc: str, ipa: str):
     "grc,ipa",
     [
         ("σπόγγος", "s̠pˈo̞ŋɡo̞s̠"),
-        ("φέγγος", "pʰˈεŋɡo̞s̠"),
-        ("ἀγγαρεύω", "aŋɡaɾˈεβo̞"),
+        ("φέγγος", "pʰˈɛŋɡo̞s̠"),
+        ("ἀγγαρεύω", "aŋɡaɾˈɛβo̞"),
     ],
 )
 def test_γ_after_nasal_consonant(grc: str, ipa: str):
@@ -68,9 +68,9 @@ def test_γ_after_nasal_consonant(grc: str, ipa: str):
 @pytest.mark.parametrize(
     "grc,ipa",
     [
-        ("ἄγγελος", "ˈaɲɟεlo̞s̠"),
-        ("ἐγγύς", "εɲɟˈys̠"),
-        ("ἐγγίζειν", "εɲɟˈiz̠in"),
+        ("ἄγγελος", "ˈaɲɟɛlo̞s̠"),
+        ("ἐγγύς", "ɛɲɟˈys̠"),
+        ("ἐγγίζειν", "ɛɲɟˈiz̠in"),
     ],
 )
 def test_γ_after_nasal_consonant_and_before_front_vowels(grc: str, ipa: str):
@@ -101,6 +101,24 @@ def test_γ_before_velar_consonants(grc: str, ipa: str):
     assert ipa == transcribe(grc)
 
 
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("σάλπιγγι", "s̠ˈalpiɲɟi"),
+        ("ἀνάγκη", "anˈaɲceː"),
+        ("ἐλέγχειν", "ɛlˈɛɲcʰiːn"),
+    ],
+)
+def test_γ_before_palatalized_velar_consonants(grc: str, ipa: str):
+    """
+    SGPNTG 4.1.1, pg 41
+
+    Before palatalized velar consonants, namely in the sequence γ(γ), γ(κ), γ(χ)
+    followed by ι, ει, υ, οι, η, ηι, ῃ, ε, or αι, then γ is pronounced as IPA ɲ.
+    """
+    assert ipa == transcribe(grc)
+
+
 # SGPNTG 4.1.5, pg 52
 @pytest.mark.parametrize(
     "grc,ipa",
@@ -109,6 +127,26 @@ def test_γ_before_velar_consonants(grc: str, ipa: str):
     ],
 )
 def test_φ(grc: str, ipa: str):
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("κιβωτός", "ciβo̞ːtˈo̞s̠"),
+        ("κεῖται", "cˈiːtɛː"),
+        ("κοινωνία", "cyːno̞ːnˈia"),
+        ("κηρύσσω", "ceːɾˈys̠o̞ː"),
+        ("καί", "cˈɛː"),
+    ],
+)
+def test_κ_before_front_vowels(grc: str, ipa: str):
+    """
+    SGPNTG 4.1.8, pg 59
+
+    Before front vowels, namely ι, ει, υ, οι, η, ηι, ῃ, ε, or αι, κ is
+    pronounced as IPA c.
+    """
     assert ipa == transcribe(grc)
 
 
