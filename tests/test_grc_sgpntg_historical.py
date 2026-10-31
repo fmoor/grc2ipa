@@ -15,9 +15,9 @@ def transcribe(grc: str) -> str:
     "grc,ipa",
     [
         ("γ", "ɣ"),
-        ("γάμος", "ɣˈamo̞s̱"),
+        ("γάμος", "ɣˈamo̞s̠"),
         ("γράφω", "ɣɾˈapʰo̞ː"),
-        ("λόγος", "lˈo̞ɣo̞s̱"),
+        ("λόγος", "lˈo̞ɣo̞s̠"),
     ],
 )
 def test_γ(grc: str, ipa: str):
@@ -28,9 +28,9 @@ def test_γ(grc: str, ipa: str):
 @pytest.mark.parametrize(
     "grc,ipa",
     [
-        ("γείνεσθαι", "ˈʝiːnɛs̱tʰɛː"),
-        ("ἐγένετο", "ɛˈʝεnεto̞"),
-        ("λόγοι", "ˈlo̞ʝy"),
+        ("γείνεσθαι", "ʝˈiːnɛs̠tʰɛː"),
+        ("ἐγένετο", "ɛʝˈεnεto̞"),
+        ("λόγοι", "lˈo̞ʝy"),
     ],
 )
 def test_γ_before_front_vowels(grc: str, ipa: str):
@@ -41,9 +41,9 @@ def test_γ_before_front_vowels(grc: str, ipa: str):
 @pytest.mark.parametrize(
     "grc,ipa",
     [
-        ("σπόγγος", "ˈs̠po̞ŋɡo̞s̠"),
-        ("φέγγος", "ˈpʰεŋɡo̞s̠"),
-        ("ἀγγαρεύω", "aŋɡaˈɾεβo̞"),
+        ("σπόγγος", "s̠pˈo̞ŋɡo̞s̠"),
+        ("φέγγος", "pʰˈεŋɡo̞s̠"),
+        ("ἀγγαρεύω", "aŋɡaɾˈεβo̞"),
     ],
 )
 def test_γ_after_nasal_consonant(grc: str, ipa: str):
@@ -55,12 +55,23 @@ def test_γ_after_nasal_consonant(grc: str, ipa: str):
     "grc,ipa",
     [
         ("ἄγγελος", "ˈaɲɟεlo̞s̠"),
-        ("ἐγγύς", "εɲˈɟys̠"),
-        ("ἐγγίζειν", "εɲˈɟiz̠in"),
+        ("ἐγγύς", "εɲɟˈys̠"),
+        ("ἐγγίζειν", "εɲɟˈiz̠in"),
     ],
 )
 def test_γ_after_nasal_consonant_and_before_front_vowels(grc: str, ipa: str):
     """SGPNTG 4.1.1, pg 40"""
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("σάλπιγγα", "s̠ˈalpiŋɡa"),
+    ],
+)
+def test_γ_before_velar_consonants(grc: str, ipa: str):
+    """SGPNTG 4.1.1, pg 41"""
     assert ipa == transcribe(grc)
 
 
@@ -112,8 +123,8 @@ def test_ρ(grc: str, ipa: str):
 @pytest.mark.parametrize(
     "grc,ipa",
     [
-        ("σ", "s̱"),
-        ("ς", "s̱"),
+        ("σ", "s̠"),
+        ("ς", "s̠"),
     ],
 )
 def test_σ(grc: str, ipa: str):
