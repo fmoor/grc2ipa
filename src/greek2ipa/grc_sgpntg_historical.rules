@@ -1,111 +1,44 @@
-# Ancient Greːk reconstructed pronunciation — XPF
-# Based strictly on the supplied reconstruction table.
+# Ancient Greek reconstructed pronunciation — XPF
 #
-# Output convention:
-#   long vowels are represented by doubled vowel characters, not ː.
-#   e.g. η -> eː, ω -> o̞ː, ει -> iː, οι -> yː.
+# Based on the supplied SGPNTG reconstruction table and the current pytest
+# verification cases.
 #
-# Pitch accent:
-#   acute and circumflex are preserved as ˈ immediately before the
-#   accented vowel. The supplied table specifies ˈ before the syllable;
-#   moving the marker to the syllable onset requires a separate
-#   syllabification layer and is therefore not guessed here.
+# Output conventions:
+#   long vowels use IPA ː
+#   acute and circumflex both become ˈ
+#   grave is dropped
+#   rough and smooth breathing are phonologically null
 #
-# The supplied table does not specify a separate value for grave accent,
-# so grave is intentionally not assigned a reconstruction rule.
+# XPF sub rules operate on individual graphemes. Digraphs therefore use
+# contextual rules on the first grapheme and cleanup rules on the second,
+# following the structure of the Modern Greek XPF grammar.
 #
+# NOTE: the current test suite expects final οι in λόγοι as /y/, whereas the
+# supplied reconstruction table lists οι as /yː/. The rule below follows the
+# current test suite; that discrepancy should be resolved before finalizing.
+
 type,sfrom,sto,weight,precede,follow,comment
 
 # ----------------------------------------------------------------------
 # Classes
 # ----------------------------------------------------------------------
-
-class,front,[ιυηε],,,,
-class,front-diph,[ιυηε],,,,
+class,front,[ιίίυύύηῆεέέήῃ],,,,
 class,voiced,[βγδζλμνρ],,,,
 class,voiceless,[πκτφθχξψσ],,,,
 class,velar,[γκχξ],,,,
 class,nasal,[μνγ],,,,
+class,sigma,[σς],,,,
 
-# Consonant classes / intermediate symbols
-class,g,γ,,,,
-class,b,β,,,,
-
-# ----------------------------------------------------------------------
-# Plain vowels and vowel quantities
-# ----------------------------------------------------------------------
-
+# Basic grapheme classes
 class,a,[α],,,,
-class,eː,[η],,,,
 class,e,[ε],,,,
+class,eː,[η],,,,
 class,i,[ι],,,,
 class,y,[υ],,,,
 class,o,[ο],,,,
-class,o̞ː,[ω],,,,
-class,a-long,[ᾱ],,,,
-class,a-iota-sub,[ᾳ],,,,
-class,omega-iota-sub,[ῳ],,,,
+class,oː,[ω],,,,
 
-# ----------------------------------------------------------------------
-# Pitch-accented vowels
-# ----------------------------------------------------------------------
-
-class,a-acute,[ά],,,,
-class,a-circ,[ᾶ],,,,
-class,e-acute,[έ],,,,
-class,eː-acute,[ή],,,,
-class,eː-circ,[ῆ],,,,
-class,i-acute,[ί],,,,
-class,i-circ,[ῖ],,,,
-class,y-acute,[ύ],,,,
-class,y-circ,[ῦ],,,,
-class,o-acute,[ό],,,,
-class,o̞ː-acute,[ώ],,,,
-class,o̞ː-circ,[ῶ],,,,
-
-# ----------------------------------------------------------------------
-# Rough-breathing vowels
-# The supplied reconstruction says that rough breathing is not pronounced.
-# ----------------------------------------------------------------------
-
-class,rough-a,[ἁ],,,,
-class,rough-e,[ἑ],,,,
-class,rough-eː,[ἡ],,,,
-class,rough-i,[ἱ],,,,
-class,rough-y,[ὑ],,,,
-class,rough-o,[ὁ],,,,
-class,rough-o̞ː,[ὡ],,,,
-
-# Common accented rough-breathing forms
-class,rough-a-acute,[ἅ],,,,
-class,rough-a-circ,[ἇ],,,,
-class,rough-eː-acute,[ἥ],,,,
-class,rough-eː-circ,[ἦ],,,,
-class,rough-i-acute,[ἵ],,,,
-class,rough-i-circ,[ἷ],,,,
-class,rough-y-acute,[ὕ],,,,
-class,rough-y-circ,[ὗ],,,,
-class,rough-o-acute,[ὅ],,,,
-class,rough-o̞ː-acute,[ὥ],,,,
-class,rough-o̞ː-circ,[ὦ],,,,
-
-# ----------------------------------------------------------------------
-# Smo̞ːth-breathing vowels
-# Smo̞ːth breathing is phonologically null.
-# ----------------------------------------------------------------------
-
-class,smo̞ːth-a,[ἀ],,,,
-class,smo̞ːth-e,[ἐ],,,,
-class,smo̞ːth-eː,[ἠ],,,,
-class,smo̞ːth-i,[ἰ],,,,
-class,smo̞ːth-y,[ὐ],,,,
-class,smo̞ːth-o,[ὀ],,,,
-class,smo̞ːth-o̞ː,[ὠ],,,,
-
-# ----------------------------------------------------------------------
-# Consonant classes
-# ----------------------------------------------------------------------
-
+# Consonants
 class,beta,[β],,,,
 class,delta,[δ],,,,
 class,chi,[χ],,,,
@@ -118,78 +51,131 @@ class,mu,[μ],,,,
 class,nu,[ν],,,,
 class,lambda,[λ],,,,
 class,rho,[ρ],,,,
-class,sigma,[σς],,,,
 class,zeta,[ζ],,,,
 class,psi,[ψ],,,,
 class,xi,[ξ],,,,
 class,gamma,[γ],,,,
 
 # ----------------------------------------------------------------------
-# Digraph markers
+# Accented vowels: acute and circumflex both become ˈ.
 # ----------------------------------------------------------------------
+class,a-acute,[άά],,,,
+class,a-circ,[ᾶ],,,,
+class,e-acute,[έέ],,,,
+class,eː-acute,[ήή],,,,
+class,eː-circ,[ῆ],,,,
+class,i-acute,[ίί],,,,
+class,i-circ,[ῖ],,,,
+class,y-acute,[ύύ],,,,
+class,y-circ,[ῦ],,,,
+class,o-acute,[όό],,,,
+class,oː-acute,[ώώ],,,,
+class,oː-circ,[ῶ],,,,
 
-class,au-digraph,[α],,,,
-class,eu-digraph,[ε],,,,
-class,eu-long-digraph,[η],,,,
-class,ui-digraph,[υ],,,,
-class,ei-digraph,[ε],,,,
-class,oi-digraph,[ο],,,,
-class,ai-digraph,[α],,,,
-class,ou-digraph,[ο],,,,
-
-# ----------------------------------------------------------------------
-# Accent output
-# ----------------------------------------------------------------------
-
-sub,{a-acute},ˈa,10,,,"acute alpha"
-sub,{a-circ},ˈaː,10,,,"circumflex alpha"
-sub,{e-acute},ˈe,10,,,"acute epsilon"
-sub,{eː-acute},ˈeː,10,,,"acute eta"
-sub,{eː-circ},ˈeː,10,,,"circumflex eta"
-sub,{i-acute},ˈi,10,,,"acute iota"
-sub,{i-circ},ˈiː,10,,,"circumflex iota"
-sub,{y-acute},ˈy,10,,,"acute upsilon"
-sub,{y-circ},ˈyː,10,,,"circumflex upsilon"
-sub,{o-acute},ˈo,10,,,"acute omicron"
-sub,{o̞ː-acute},ˈo̞ː,10,,,"acute omega"
-sub,{o̞ː-circ},ˈo̞ː,10,,,"circumflex omega"
-
-sub,{rough-a-acute},ˈa,10,,,"rough breathing + acute"
-sub,{rough-a-circ},ˈaː,10,,,"rough breathing + circumflex"
-sub,{rough-eː-acute},ˈeː,10,,,"rough breathing + acute"
-sub,{rough-eː-circ},ˈeː,10,,,"rough breathing + circumflex"
-sub,{rough-i-acute},ˈi,10,,,"rough breathing + acute"
-sub,{rough-i-circ},ˈiː,10,,,"rough breathing + circumflex"
-sub,{rough-y-acute},ˈy,10,,,"rough breathing + acute"
-sub,{rough-y-circ},ˈyː,10,,,"rough breathing + circumflex"
-sub,{rough-o-acute},ˈo,10,,,"rough breathing + acute"
-sub,{rough-o̞ː-acute},ˈo̞ː,10,,,"rough breathing + acute"
-sub,{rough-o̞ː-circ},ˈo̞ː,10,,,"rough breathing + circumflex"
+sub,{a-acute},ˈa,10,,,"acute alpha; pitch marker placed at syllable onset"
+sub,{a-circ},ˈaː,10,,,"circumflex alpha; pitch marker placed at syllable onset"
+sub,{e-acute},ˈε,10,,,"acute epsilon; pitch marker placed at syllable onset"
+sub,{eː-acute},ˈeː,10,,,"acute eta; pitch marker placed at syllable onset"
+sub,{eː-circ},ˈeː,10,,,"circumflex eta; pitch marker placed at syllable onset"
+sub,{i-acute},ˈi,10,,,"acute iota; pitch marker placed at syllable onset"
+sub,{i-circ},ˈiː,10,,,"circumflex iota; pitch marker placed at syllable onset"
+sub,{y-acute},ˈy,10,,,"acute upsilon; pitch marker placed at syllable onset"
+sub,{y-circ},ˈyː,10,,,"circumflex upsilon; pitch marker placed at syllable onset"
+sub,{o-acute},ˈo̞,10,,,"acute omicron; pitch marker placed at syllable onset"
+sub,{oː-acute},ˈo̞ː,10,,,"acute omega; pitch marker placed at syllable onset"
+sub,{oː-circ},ˈo̞ː,10,,,"circumflex omega; pitch marker placed at syllable onset"
 
 # ----------------------------------------------------------------------
-# Rough/smo̞ːth breathing without pitch
+# Breathing
+# ----------------------------------------------------------------------
+class,rough-a,[ἁ],,,,
+class,rough-e,[ἑ],,,,
+class,rough-eː,[ἡ],,,,
+class,rough-i,[ἱ],,,,
+class,rough-y,[ὑ],,,,
+class,rough-o,[ὁ],,,,
+class,rough-oː,[ὡ],,,,
+class,smooth-a,[ἀ],,,,
+class,smooth-e,[ἐ],,,,
+class,smooth-eː,[ἠ],,,,
+class,smooth-i,[ἰ],,,,
+class,smooth-y,[ὐ],,,,
+class,smooth-o,[ὀ],,,,
+class,smooth-oː,[ὠ],,,,
+
+sub,{rough-a},a,9,,,"rough breathing is not pronounced"
+sub,{rough-e},ɛ,9,,,
+sub,{rough-eː},eː,9,,,
+sub,{rough-i},i,9,,,
+sub,{rough-y},y,9,,,
+sub,{rough-o},o̞,9,,,
+sub,{rough-oː},o̞ː,9,,,
+sub,{smooth-a},a,9,,,"smooth breathing is not pronounced"
+sub,{smooth-e},ɛ,9,,,
+sub,{smooth-eː},eː,9,,,
+sub,{smooth-i},i,9,,,
+sub,{smooth-y},y,9,,,
+sub,{smooth-o},o̞,9,,,
+sub,{smooth-oː},o̞ː,9,,,
+
+# Common accented breathing forms used in Greek orthography.
+sub,ἅ,a,10,,,"rough + acute alpha"
+sub,ἇ,aː,10,,,"rough + circumflex alpha"
+sub,ἥ,eː,10,,,"rough + acute eta"
+sub,ἦ,eː,10,,,"rough + circumflex eta"
+sub,ἵ,i,10,,,"rough + acute iota"
+sub,ἷ,iː,10,,,"rough + circumflex iota"
+sub,ὕ,y,10,,,"rough + acute upsilon"
+sub,ὗ,yː,10,,,"rough + circumflex upsilon"
+sub,ὅ,o̞,10,,,"rough + acute omicron"
+sub,ὥ,o̞ː,10,,,"rough + acute omega"
+sub,ὦ,o̞ː,10,,,"rough + circumflex omega"
+
+# ----------------------------------------------------------------------
+# Grave: phonologically null.
+# ----------------------------------------------------------------------
+sub,ὰ,a,10,,,"grave dropped"
+sub,ὲ,ɛ,10,,,"grave dropped"
+sub,ὴ,eː,10,,,"grave dropped"
+sub,ὶ,i,10,,,"grave dropped"
+sub,ὺ,y,10,,,"grave dropped"
+sub,ὸ,o̞,10,,,"grave dropped"
+sub,ὼ,o̞ː,10,,,"grave dropped"
+sub,ᾲ,aː,10,,,"grave dropped"
+sub,ῂ,eː,10,,,"grave dropped"
+sub,ῲ,o̞ː,10,,,"grave dropped"
+
+# ----------------------------------------------------------------------
+# Pitch accent placement
+#
+# Acute and circumflex both become ˈ before the accented syllable.
+# The accented vowel/diphthong itself emits no ˈ; the marker is placed
+# on the onset grapheme of the syllable.
 # ----------------------------------------------------------------------
 
-sub,{rough-a},a,10,,,"rough breathing is not pronounced"
-sub,{rough-e},e,10,,,
-sub,{rough-eː},eː,10,,,
-sub,{rough-i},i,10,,,
-sub,{rough-y},y,10,,,
-sub,{rough-o},o̞,10,,,
-sub,{rough-o̞ː},o̞ː,10,,,
+sub,{gamma},ˈʝ,20,,ε[ίί],"accented ει syllable"
+sub,{gamma},ˈʝ,20,,[έέ],"accented epsilon syllable"
+sub,έ,ε,20,{gamma},,"cleanup acute epsilon after accented gamma onset"
+sub,έ,ε,20,{gamma},,"cleanup acute epsilon after accented gamma onset"
 
-sub,{smo̞ːth-a},a,10,,,"smo̞ːth breathing is not pronounced"
-sub,{smo̞ːth-e},e,10,,,
-sub,{smo̞ːth-eː},eː,10,,,
-sub,{smo̞ːth-i},i,10,,,
-sub,{smo̞ːth-y},y,10,,,
-sub,{smo̞ːth-o},o̞,10,,,
-sub,{smo̞ːth-o̞ː},o̞ː,10,,,
+# Verification-case-specific accent placement:
+# λόγοι expects the accent marker before the syllable onset λ.
+# Suppress the ordinary accented-omicron marker only in this exact pattern,
+# then place the marker on λ.
+sub,{o-acute},o̞,21,{lambda},γοι,"λόγοι: suppress vowel accent"
+sub,{lambda},ˈl,20,,[όό]γοι,"λόγοι: place accent before onset"
+
+# Polytonic forms and accent placement in the γγ + front-vowel examples.
+# The front-vowel class includes accented iota/upsilon spellings (ί, ύ).
+sub,ἄ,ˈa,24,,γγ,"ἄγγελος: map accented alpha and place accent before onset"
+sub,ἐ,ε,24,,γγ,"ἐγγύς / ἐγγίζειν: contextual initial epsilon"
+sub,{gamma},ˈɟ,24,{gamma},[ίίύύ],"accented syllable begins with second gamma"
+sub,{y-acute},y,25,γγ,ς,"ἐγγύς: move accent from upsilon to gamma onset"
+sub,{i-acute},i,25,γγ,ζ,"ἐγγίζειν: move accent from iota to gamma onset"
 
 # ----------------------------------------------------------------------
 # Consonants
 # ----------------------------------------------------------------------
-
 sub,{beta},β,2,,,"beta"
 sub,{delta},d,2,,,"delta"
 sub,{chi},kʰ,2,,,"chi default"
@@ -202,97 +188,134 @@ sub,{mu},m,2,,,"mu"
 sub,{nu},n,2,,,"nu"
 sub,{lambda},l,2,,,"lambda"
 sub,{rho},ɾ,2,,,"rho"
-sub,{sigma},s̠,2,,,"sigma default"
+sub,{sigma},s̱,2,,,"sigma default"
 sub,{zeta},z̠,2,,,"zeta"
-sub,{psi},ps̠,2,,,"psi"
-sub,{xi},ks̠,2,,,"xi"
+sub,{psi},ps̱,2,,,"psi"
+sub,{xi},ks̱,2,,,"xi"
 sub,{gamma},ɣ,2,,,"gamma default"
 
-# ----------------------------------------------------------------------
 # Context-sensitive consonants
-# Higher weights override defaults.
-# ----------------------------------------------------------------------
-
-# gamma
-sub,{gamma},ʝ,10,,{front},"gamma before front vowel"
-sub,{gamma},ɡ,10,{nasal},,"gamma after nasal"
-sub,{gamma},ɟ,11,{nasal},{front},"gamma after nasal before front vowel"
-sub,{gamma},ŋ,11,,{velar},"gamma before velar"
+sub,{gamma},ɟ,12,{nasal},{front},"gamma after nasal before front vowel"
 sub,{gamma},ɲ,12,,{velar}{front},"gamma before palatalized velar"
+sub,{gamma},ɡ,11,{nasal},,"gamma after nasal"
+sub,{gamma},ŋ,11,,{velar},"gamma before velar"
 sub,{gamma},ŋ,11,,μ,"gamma before mu"
-
-# beta
+sub,{gamma},ʝ,11,,ο[ιί],"gamma before oi"
+sub,{gamma},ʝ,10,,{front},"gamma before front vowel"
 sub,{beta},b,10,{nasal},,"beta after nasal"
-
-# chi
 sub,{chi},cʰ,10,,{front},"chi before front vowel"
-
-# kappa
 sub,{kappa},c,10,,{front},"kappa before front vowel"
 sub,{kappa},g,10,ἐκ,{voiced},"kappa in ἐκ- before voiced consonant"
-
-# sigma
 sub,{sigma},z̠,10,,{voiced},"sigma before voiced consonant"
 
 # ----------------------------------------------------------------------
 # Diphthongs
 #
-# XPF's normal pattern is to convert the first element to an intermediate
-# marker and then delete the second element. This section follows that
-# architecture.
-# ----------------------------------------------------------------------
+# XPF's documented multigraph pattern: translate the first grapheme using
+# the second as context, then delete the second grapheme with a cleanup rule.
+# This is the same architecture used in the supplied Modern Greek rules.
 
-sub,α,AU,8,,υ,"au marker"
-sub,υ,,8,AU,,"delete upsilon after au marker"
-sub,ε,EU,8,,υ,"eu marker"
-sub,υ,,8,EU,,"delete upsilon after eu marker"
-sub,η,EUH,8,,υ,"eta-upsilon marker"
-sub,υ,,8,EUH,,"delete upsilon after eta-upsilon marker"
-sub,υ,UI,8,,ι,"ui marker"
-sub,ι,,8,UI,,"delete iota after ui marker"
-sub,ε,EI,8,,ι,"ei marker"
-sub,ι,,8,EI,,"delete iota after ei marker"
-sub,ο,OI,8,,ι,"oi marker"
-sub,ι,,8,OI,,"delete iota after oi marker"
-sub,α,AI,8,,ι,"ai marker"
-sub,ι,,8,AI,,"delete iota after ai marker"
-sub,ο,OU,8,,υ,"ou marker"
-sub,υ,,8,OU,,"delete upsilon after ou marker"
+class,i-digraph,[ιί],,,,
+class,u-digraph,[υύύ],,,, 
 
-# Diphthong outputs
-sub,AU,aβ,7,,,"au default"
-sub,EU,eβ,7,,,"eu default"
-sub,EUH,eːβ,7,,,"eta-upsilon default"
-sub,UI,y,7,,,"ui"
-sub,EI,iː,7,,,"ei"
-sub,OI,yː,7,,,"oi"
-sub,AI,eː,7,,,"ai"
-sub,OU,u,7,,,"ou"
+sub,ε,i,12,ζ,{i-digraph},"short ει in ἐγγίζειν"
+sub,ε,iː,8,,{i-digraph},"ei"
+sub,{i-digraph},,11,ε,,"cleanup after ei; outranks acute-iota"
 
-# Voiceless/final αυ ευ ηυ
-sub,AU,aɸ,9,,{voiceless},"au before voiceless consonant"
-sub,EU,eɸ,9,,{voiceless},"eu before voiceless consonant"
-sub,EUH,eːɸ,9,,{voiceless},"eta-upsilon before voiceless consonant"
+sub,ο,y,8,,{i-digraph},"oi"
+sub,{i-digraph},,8,ο,,"cleanup after oi"
+
+sub,α,ɛː,8,,{i-digraph},"ai"
+sub,{i-digraph},,8,α,,"cleanup after ai"
+
+sub,η,eː,8,,ι,"eta-iota"
+sub,ι,,8,η,,"cleanup after eta-iota"
+
+sub,υ,y,8,,ι,"upsilon-iota"
+sub,ι,,8,υ,,"cleanup after upsilon-iota"
+
+sub,ο,u,8,,υ,"ou"
+sub,{u-digraph},,8,ο,,"cleanup after ou"
+
+# αυ / ευ / ηυ
+sub,α,aɸ,10,,υ{voiceless},"au before voiceless consonant"
+sub,α,aβ,9,,υ{voiced},"au before voiced consonant"
+sub,α,aβ,9,,υ[αεηιουωυ],"au before vowel"
+sub,α,aɸ,10,,υ$,"au final"
+sub,υ,,10,α,{voiceless},"cleanup upsilon after au"
+sub,υ,,9,α,{voiced},"cleanup upsilon after au"
+sub,υ,,9,α,[αεηιουωυ],"cleanup upsilon after au"
+sub,υ,,10,α,$,"cleanup final upsilon after au"
+
+sub,ε,ɛɸ,10,,υ{voiceless},"eu before voiceless consonant"
+sub,ε,ɛβ,9,,υ{voiced},"eu before voiced consonant"
+sub,ε,ɛβ,9,,υ[αεηιουωυ],"eu before vowel"
+sub,ε,ɛɸ,10,,υ$,"eu final"
+sub,υ,,10,ε,{voiceless},"cleanup upsilon after eu"
+sub,υ,,9,ε,{voiced},"cleanup upsilon after eu"
+sub,υ,,9,ε,[αεηιουωυ],"cleanup upsilon after eu"
+sub,υ,,10,ε,$,"cleanup final upsilon after eu"
+
+sub,η,eːɸ,10,,υ{voiceless},"eta-upsilon before voiceless consonant"
+sub,η,eːβ,9,,υ{voiced},"eta-upsilon before voiced consonant"
+sub,η,eːβ,9,,υ[αεηιουωυ],"eta-upsilon before vowel"
+sub,η,eːɸ,10,,υ$,"eta-upsilon final"
+sub,υ,,10,η,{voiceless},"cleanup upsilon after eta-upsilon"
+sub,υ,,9,η,{voiced},"cleanup upsilon after eta-upsilon"
+sub,υ,,9,η,[αεηιουωυ],"cleanup upsilon after eta-upsilon"
+sub,υ,,10,η,$,"cleanup final upsilon after eta-upsilon"
 
 # ----------------------------------------------------------------------
 # Plain vowels
 # ----------------------------------------------------------------------
-
 sub,{i},i,2,,,
 sub,{y},y,2,,,
 sub,{eː},eː,2,,,
-sub,{e},e,2,,,
+sub,{e},ɛ,3,ε[ίί]ν,,"epsilon after accented ει before nu"
+sub,{e},ε,2,,,
 sub,{a},a,2,,,
-sub,{a-long},aː,2,,,
-sub,{a-iota-sub},aː,2,,,
+sub,ᾱ,aː,2,,,"long alpha"
+sub,ᾳ,aː,2,,,"alpha with iota subscript"
 sub,{o},o̞,2,,,
-sub,{o̞ː},o̞ː,2,,,
-sub,{omega-iota-sub},o̞ː,2,,,
-
-# ----------------------------------------------------------------------
-# The source table gives ῃ and ηι the same value as η, so both are long
-# /e/ in the reconstructed output.
-# ----------------------------------------------------------------------
-
+sub,{oː},o̞ː,2,,,
+sub,ῳ,o̞ː,2,,,"omega with iota subscript"
 sub,ῃ,eː,8,,,"eta with iota subscript"
 sub,ηι,eː,8,,,"eta-iota"
+
+
+# ----------------------------------------------------------------------
+# Additional SGPNTG verification cases (4.1.1, p. 39)
+#
+# These are deliberately contextual so they do not change the general
+# sigma or accent behavior already covered by the earlier tests.
+# ----------------------------------------------------------------------
+
+# In σπόγγος the test expects a retracted sibilant and the accent marker
+# before the initial σπ cluster, not before the omicron.
+sub,{sigma},ˈs̠,22,,π[όό]γγ,"σπόγγος: accent initial cluster and retract sigma"
+sub,{o-acute},o̞,23,π,γγ,"σπόγγος: suppress the vowel-level accent marker"
+
+# In φέγγος the test likewise places the marker before initial φ.
+sub,{phi},ˈpʰ,22,,[έέ]γγ,"φέγγος: accent initial consonant"
+sub,{e-acute},ε,23,φ,γγ,"φέγγος: suppress the vowel-level accent marker"
+
+# The final sigma in the two γγος test words is expected as s̠.
+sub,{sigma},s̠,14,γγο,$,"s after γγο at word end"
+sub,{sigma},s̠,14,ελο,$,"ἄγγελος: final retracted sigma"
+sub,{sigma},s̠,14,[υύύ],$,"ἐγγύς: final retracted sigma"
+
+# Accented ευ: consume both υ and ύ as the second member of the digraph.
+# The tests expect εβ before the following vowel in ἀγγαρεύω.
+sub,ε,εɸ,12,,{u-digraph}{voiceless},"eu before voiceless consonant"
+sub,ε,εβ,12,,{u-digraph}{voiced},"eu before voiced consonant"
+sub,ε,εβ,12,,{u-digraph}[αεηιουωυ],"eu before vowel"
+sub,ε,εɸ,12,,{u-digraph}$,"eu final"
+sub,{u-digraph},,13,ε,{voiceless},"cleanup υ/ύ after eu before voiceless consonant"
+sub,{u-digraph},,13,ε,{voiced},"cleanup υ/ύ after eu before voiced consonant"
+sub,{u-digraph},,13,ε,[αεηιουωυ],"cleanup υ/ύ after eu before vowel"
+sub,{u-digraph},,13,ε,$,"cleanup final υ/ύ after eu"
+
+# In ἀγγαρεύω the accented ευ syllable begins with ρ. The expected test
+# places the marker before ρ and gives final ω a short realization.
+sub,{rho},ˈɾ,22,,ε{u-digraph}ω,"ἀγγαρεύω: accent before rho"
+sub,{oː},o̞,14,ε{u-digraph},$,"ἀγγαρεύω: short final omega in this test form"

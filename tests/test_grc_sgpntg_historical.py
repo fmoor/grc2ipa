@@ -38,6 +38,32 @@ def test_γ_before_front_vowels(grc: str, ipa: str):
     assert ipa == transcribe(grc)
 
 
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("σπόγγος", "ˈs̠po̞ŋɡo̞s̠"),
+        ("φέγγος", "ˈpʰεŋɡo̞s̠"),
+        ("ἀγγαρεύω", "aŋɡaˈɾεβo̞"),
+    ],
+)
+def test_γ_after_nasal_consonant(grc: str, ipa: str):
+    """SGPNTG 4.1.1, pg 39"""
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("ἄγγελος", "ˈaɲɟεlo̞s̠"),
+        ("ἐγγύς", "εɲˈɟys̠"),
+        ("ἐγγίζειν", "εɲˈɟiz̠in"),
+    ],
+)
+def test_γ_after_nasal_consonant_and_before_front_vowels(grc: str, ipa: str):
+    """SGPNTG 4.1.1, pg 40"""
+    assert ipa == transcribe(grc)
+
+
 # SGPNTG 4.1.5, pg 52
 @pytest.mark.parametrize(
     "grc,ipa",
