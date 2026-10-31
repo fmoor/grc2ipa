@@ -8,7 +8,7 @@ import greek2ipa
 
 
 def transcribe(grc: str) -> str:
-    return "".join(greek2ipa.grc_sgpntg_historical.transcribe(grc))
+    return greek2ipa.grc_sgpntg_historical(grc)
 
 
 @pytest.mark.parametrize(
@@ -115,6 +115,24 @@ def test_γ_before_palatalized_velar_consonants(grc: str, ipa: str):
 
     Before palatalized velar consonants, namely in the sequence γ(γ), γ(κ), γ(χ)
     followed by ι, ει, υ, οι, η, ηι, ῃ, ε, or αι, then γ is pronounced as IPA ɲ.
+    """
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("πρᾶγμα", "pɾˈaːŋma"),
+        ("διωγμός", "dio̞ːŋmˈo̞s̠"),
+        ("κήρυγμα", "cˈeːɾyŋma"),
+    ],
+)
+def test_γ_before_bilabial_nasal(grc: str, ipa: str):
+    """
+    SGPNTG 4.1.1, pg 42
+
+    Before the bilabial nasal, namely in the sequence γ(μ), the consonant γ
+    is pronounced as IPA ŋ.
     """
     assert ipa == transcribe(grc)
 

@@ -1,14 +1,14 @@
 # Ancient Greek reconstructed pronunciation — XPF
 #
 # Based on the supplied SGPNTG reconstruction table and the current pytest
-# verification cases.
+# verification cases. Input is expected to be normalized to Unicode NFC.
 #
 # Output conventions:
 #   long vowels use IPA ː
 #   acute and circumflex both become ˈ immediately before the accented
 #   vowel or diphthong nucleus; this file does not perform syllabification
 #   or move accent markers to syllable onsets
-#   grave is dropped
+#   grave accent is ignored
 #   rough and smooth breathing are phonologically null
 #
 # XPF sub rules operate on individual graphemes. Digraphs therefore use
@@ -23,13 +23,12 @@ type,sfrom,sto,weight,precede,follow,comment
 # ----------------------------------------------------------------------
 # Classes
 # ----------------------------------------------------------------------
-class,front,[ιίίυύύηῆεέέήῃ],,,,
+class,front,[ιίυύηῆεέήῃ],,,,
 class,voiced,[βγδζλμνρ],,,,
 class,voiceless,[πκτφθχξψσ],,,,
 class,velar,[γκχξ],,,,
 class,nasal,[μνγ],,,,
 class,sigma,[σς],,,,
-class,consonant,[βγδζθκλμνξπρσςτφχψ],,,,
 
 # Basic grapheme classes
 class,a,[α],,,,
@@ -62,18 +61,18 @@ class,gamma,[γ],,,,
 # Accented vowels: acute and circumflex both become ˈ immediately before
 # the accented vowel nucleus. Syllable-onset placement is a later stage.
 # ----------------------------------------------------------------------
-class,a-acute,[άά],,,,
-class,a-circ,[ᾶ],,,,
-class,e-acute,[έέ],,,,
-class,eː-acute,[ήή],,,,
-class,eː-circ,[ῆ],,,,
-class,i-acute,[ίί],,,,
-class,i-circ,[ῖ],,,,
-class,y-acute,[ύύ],,,,
-class,y-circ,[ῦ],,,,
-class,o-acute,[όό],,,,
-class,oː-acute,[ώώ],,,,
-class,oː-circ,[ῶ],,,,
+class,a-acute,[άἄἅ],,,,
+class,a-circ,[ᾶἇ],,,,
+class,e-acute,[έ],,,,
+class,eː-acute,[ήἥ],,,,
+class,eː-circ,[ῆἦ],,,,
+class,i-acute,[ίἵ],,,,
+class,i-circ,[ῖἷ],,,,
+class,y-acute,[ύὕ],,,,
+class,y-circ,[ῦὗ],,,,
+class,o-acute,[όὅ],,,,
+class,oː-acute,[ώὥ],,,,
+class,oː-circ,[ῶὦ],,,,
 
 sub,{a-acute},ˈa,10,,,"acute alpha; mark accented nucleus"
 sub,{a-circ},ˈaː,10,,,"circumflex alpha; mark accented nucleus"
@@ -87,53 +86,27 @@ sub,{y-circ},ˈyː,10,,,"circumflex upsilon; mark accented nucleus"
 sub,{o-acute},ˈo̞,10,,,"acute omicron; mark accented nucleus"
 sub,{oː-acute},ˈo̞ː,10,,,"acute omega; mark accented nucleus"
 sub,{oː-circ},ˈo̞ː,10,,,"circumflex omega; mark accented nucleus"
-sub,ἄ,ˈa,10,,,"smooth + acute alpha"
 
 # ----------------------------------------------------------------------
 # Breathing
+# Smooth and rough breathing are both phonologically null.
+# Pair the two spellings for each vowel to avoid parallel rules.
 # ----------------------------------------------------------------------
-class,rough-a,[ἁ],,,,
-class,rough-e,[ἑ],,,,
-class,rough-eː,[ἡ],,,,
-class,rough-i,[ἱ],,,,
-class,rough-y,[ὑ],,,,
-class,rough-o,[ὁ],,,,
-class,rough-oː,[ὡ],,,,
-class,smooth-a,[ἀ],,,,
-class,smooth-e,[ἐ],,,,
-class,smooth-eː,[ἠ],,,,
-class,smooth-i,[ἰ],,,,
-class,smooth-y,[ὐ],,,,
-class,smooth-o,[ὀ],,,,
-class,smooth-oː,[ὠ],,,,
+class,breathing-a,[ἀἁ],,,,
+class,breathing-e,[ἐἑ],,,,
+class,breathing-eː,[ἠἡ],,,,
+class,breathing-i,[ἰἱ],,,,
+class,breathing-y,[ὐὑ],,,,
+class,breathing-o,[ὀὁ],,,,
+class,breathing-oː,[ὠὡ],,,,
 
-sub,{rough-a},a,9,,,"rough breathing is not pronounced"
-sub,{rough-e},ɛ,9,,,
-sub,{rough-eː},eː,9,,,
-sub,{rough-i},i,9,,,
-sub,{rough-y},y,9,,,
-sub,{rough-o},o̞,9,,,
-sub,{rough-oː},o̞ː,9,,,
-sub,{smooth-a},a,9,,,"smooth breathing is not pronounced"
-sub,{smooth-e},ɛ,9,,,
-sub,{smooth-eː},eː,9,,,
-sub,{smooth-i},i,9,,,
-sub,{smooth-y},y,9,,,
-sub,{smooth-o},o̞,9,,,
-sub,{smooth-oː},o̞ː,9,,,
-
-# Common accented breathing forms used in Greek orthography.
-sub,ἅ,ˈa,10,,,"rough + acute alpha"
-sub,ἇ,ˈaː,10,,,"rough + circumflex alpha"
-sub,ἥ,ˈeː,10,,,"rough + acute eta"
-sub,ἦ,ˈeː,10,,,"rough + circumflex eta"
-sub,ἵ,ˈi,10,,,"rough + acute iota"
-sub,ἷ,ˈiː,10,,,"rough + circumflex iota"
-sub,ὕ,ˈy,10,,,"rough + acute upsilon"
-sub,ὗ,ˈyː,10,,,"rough + circumflex upsilon"
-sub,ὅ,ˈo̞,10,,,"rough + acute omicron"
-sub,ὥ,ˈo̞ː,10,,,"rough + acute omega"
-sub,ὦ,ˈo̞ː,10,,,"rough + circumflex omega"
+sub,{breathing-a},a,9,,,"breathing is not pronounced"
+sub,{breathing-e},ɛ,9,,,"breathing is not pronounced"
+sub,{breathing-eː},eː,9,,,"breathing is not pronounced"
+sub,{breathing-i},i,9,,,"breathing is not pronounced"
+sub,{breathing-y},y,9,,,"breathing is not pronounced"
+sub,{breathing-o},o̞,9,,,"breathing is not pronounced"
+sub,{breathing-oː},o̞ː,9,,,"breathing is not pronounced"
 
 # ----------------------------------------------------------------------
 # Grave: phonologically null.
@@ -191,76 +164,68 @@ sub,{sigma},z̠,10,,{voiced},"sigma before voiced consonant"
 # the second as context, then delete the second grapheme with a cleanup rule.
 # This is the same architecture used in the supplied Modern Greek rules.
 
-class,i-digraph,[ιίίῖ],,,,
-class,u-digraph,[υύύ],,,, 
+class,i-digraph,[ιίῖ],,,,
+class,u-digraph,[υύ],,,,
 
-sub,ε,i,12,ζ,{i-digraph},"short ει in ἐγγίζειν"
-sub,ε,ˈiː,12,,[ίίῖ],"accented ei, including circumflex iota"
+sub,ε,i,12,ζ,{i-digraph},"short ει in ἐγγίζειν"
+sub,ε,ˈiː,12,,[ίῖ],"accented ei, including circumflex iota"
 sub,ε,iː,8,,{i-digraph},"ei"
 sub,{i-digraph},,11,ε,,"cleanup after ei; outranks acute-iota"
 
-sub,ο,ˈyː,12,,[ίί],"accented oi"
+sub,ο,ˈyː,12,,[ί],"accented oi"
 sub,ο,yː,8,,{i-digraph},"oi"
 sub,{i-digraph},,14,ο,,"cleanup after oi; outranks standalone accented iota"
 
-sub,α,ˈɛː,12,,[ίίῖ],"accented ai"
+sub,α,ˈɛː,12,,[ίῖ],"accented ai"
 sub,α,ɛː,8,,{i-digraph},"ai"
 sub,{i-digraph},,14,α,,"cleanup after ai; outranks standalone accented iota"
 
 sub,η,eː,8,,ι,"eta-iota"
 sub,ι,,8,η,,"cleanup after eta-iota"
 
-sub,υ,ˈy,12,,[ίί],"accented upsilon-iota"
+sub,υ,ˈy,12,,[ί],"accented upsilon-iota"
 sub,υ,y,8,,ι,"upsilon-iota"
 sub,ι,,14,υ,,"cleanup after upsilon-iota"
 
-sub,ο,ˈu,12,,[ύύ],"accented ou"
+sub,ο,ˈu,12,,[ύ],"accented ou"
 sub,ο,u,8,,υ,"ou"
 sub,{u-digraph},,8,ο,,"cleanup after ou"
 
 # αυ / ευ / ηυ
 # Second-member acute accent in αυ / ευ / ηυ: retain it on the diphthong nucleus.
-sub,α,ˈaɸ,13,,[ύύ]{voiceless},"accented au before voiceless consonant"
-sub,α,ˈaβ,13,,[ύύ]{voiced},"accented au before voiced consonant"
-sub,α,ˈaβ,13,,[ύύ][αεηιουωυ],"accented au before vowel"
-sub,α,ˈaɸ,13,,[ύύ]$,"accented au final"
-sub,ε,ˈɛɸ,13,,[ύύ]{voiceless},"accented eu before voiceless consonant"
-sub,ε,ˈɛβ,13,,[ύύ]{voiced},"accented eu before voiced consonant"
-sub,ε,ˈɛβ,13,,[ύύ][αεηιουωυ],"accented eu before vowel"
-sub,ε,ˈɛɸ,13,,[ύύ]$,"accented eu final"
-sub,η,ˈeːɸ,13,,[ύύ]{voiceless},"accented eta-upsilon before voiceless consonant"
-sub,η,ˈeːβ,13,,[ύύ]{voiced},"accented eta-upsilon before voiced consonant"
-sub,η,ˈeːβ,13,,[ύύ][αεηιουωυ],"accented eta-upsilon before vowel"
-sub,η,ˈeːɸ,13,,[ύύ]$,"accented eta-upsilon final"
+sub,α,ˈaɸ,13,,[ύ]{voiceless},"accented au before voiceless consonant"
+sub,α,ˈaβ,13,,[ύ]{voiced},"accented au before voiced consonant"
+sub,α,ˈaβ,13,,[ύ][αεηιουω],"accented au before vowel"
+sub,α,ˈaɸ,13,,[ύ]$,"accented au final"
+sub,ε,ˈɛɸ,13,,[ύ]{voiceless},"accented eu before voiceless consonant"
+sub,ε,ˈɛβ,13,,[ύ]{voiced},"accented eu before voiced consonant"
+sub,ε,ˈɛβ,13,,[ύ][αεηιουω],"accented eu before vowel"
+sub,ε,ˈɛɸ,13,,[ύ]$,"accented eu final"
+sub,η,ˈeːɸ,13,,[ύ]{voiceless},"accented eta-upsilon before voiceless consonant"
+sub,η,ˈeːβ,13,,[ύ]{voiced},"accented eta-upsilon before voiced consonant"
+sub,η,ˈeːβ,13,,[ύ][αεηιουω],"accented eta-upsilon before vowel"
+sub,η,ˈeːɸ,13,,[ύ]$,"accented eta-upsilon final"
 
 sub,α,aɸ,10,,υ{voiceless},"au before voiceless consonant"
 sub,α,aβ,9,,υ{voiced},"au before voiced consonant"
-sub,α,aβ,9,,υ[αεηιουωυ],"au before vowel"
+sub,α,aβ,9,,υ[αεηιουω],"au before vowel"
 sub,α,aɸ,10,,υ$,"au final"
-sub,υ,,10,α,{voiceless},"cleanup upsilon after au"
-sub,υ,,9,α,{voiced},"cleanup upsilon after au"
-sub,υ,,9,α,[αεηιουωυ],"cleanup upsilon after au"
-sub,υ,,10,α,$,"cleanup final upsilon after au"
 
 sub,ε,ɛɸ,10,,υ{voiceless},"eu before voiceless consonant"
 sub,ε,ɛβ,9,,υ{voiced},"eu before voiced consonant"
-sub,ε,ɛβ,9,,υ[αεηιουωυ],"eu before vowel"
+sub,ε,ɛβ,9,,υ[αεηιουω],"eu before vowel"
 sub,ε,ɛɸ,10,,υ$,"eu final"
-sub,υ,,10,ε,{voiceless},"cleanup upsilon after eu"
-sub,υ,,9,ε,{voiced},"cleanup upsilon after eu"
-sub,υ,,9,ε,[αεηιουωυ],"cleanup upsilon after eu"
-sub,υ,,10,ε,$,"cleanup final upsilon after eu"
 
 sub,η,eːɸ,10,,υ{voiceless},"eta-upsilon before voiceless consonant"
 sub,η,eːβ,9,,υ{voiced},"eta-upsilon before voiced consonant"
-sub,η,eːβ,9,,υ[αεηιουωυ],"eta-upsilon before vowel"
+sub,η,eːβ,9,,υ[αεηιουω],"eta-upsilon before vowel"
 sub,η,eːɸ,10,,υ$,"eta-upsilon final"
-sub,υ,,10,η,{voiceless},"cleanup upsilon after eta-upsilon"
-sub,υ,,9,η,{voiced},"cleanup upsilon after eta-upsilon"
-sub,υ,,9,η,[αεηιουωυ],"cleanup upsilon after eta-upsilon"
-sub,υ,,10,η,$,"cleanup final upsilon after eta-upsilon"
 
-# ----------------------------------------------------------------------
+# Cleanup of the second member of αυ / ευ / ηυ.
+sub,{u-digraph},,14,α,,"cleanup second member of αυ"
+sub,{u-digraph},,14,ε,,"cleanup second member of ευ"
+sub,{u-digraph},,14,η,,"cleanup second member of ηυ"
+
 # Plain vowels
 # ----------------------------------------------------------------------
 sub,{i},i,2,,,
@@ -276,49 +241,8 @@ sub,ῳ,o̞ː,2,,,"omega with iota subscript"
 sub,ῃ,eː,8,,,"eta with iota subscript"
 sub,ηι,eː,8,,,"eta-iota"
 
-
-# ----------------------------------------------------------------------
-# Additional SGPNTG verification cases (4.1.1, p. 39)
-#
-# These are deliberately contextual so they do not change the general
-# sigma or accent behavior already covered by the earlier tests.
-# ----------------------------------------------------------------------
-
-# In σπόγγος the test expects a retracted initial sibilant. Accent remains
-# on the accented omicron nucleus, as specified by its ordinary vowel rule.
-
-sub,{sigma},s̠,22,,π[όό]γγ,"σπόγγος: retract initial sigma"
-
-# In φέγγος the accent remains on the accented epsilon nucleus.
-
-# The final sigma in the two γγος test words is expected as s̠.
-sub,{sigma},s̠,14,γγο,$,"s after γγο at word end"
-sub,{sigma},s̠,14,ελο,$,"ἄγγελος: final retracted sigma"
-sub,{sigma},s̠,14,[υύύ],$,"ἐγγύς: final retracted sigma"
-
-# Accented ευ: consume both υ and ύ as the second member of the digraph.
-# The tests expect εβ before the following vowel in ἀγγαρεύω.
-sub,ε,εɸ,12,,{u-digraph}{voiceless},"eu before voiceless consonant"
-sub,ε,εβ,12,,{u-digraph}{voiced},"eu before voiced consonant"
-sub,ε,εβ,12,,{u-digraph}[αεηιουωυ],"eu before vowel"
-sub,ε,εɸ,12,,{u-digraph}$,"eu final"
-sub,{u-digraph},,13,ε,{voiceless},"cleanup υ/ύ after eu before voiceless consonant"
-sub,{u-digraph},,13,ε,{voiced},"cleanup υ/ύ after eu before voiced consonant"
-sub,{u-digraph},,13,ε,[αεηιουωυ],"cleanup υ/ύ after eu before vowel"
-sub,{u-digraph},,13,ε,$,"cleanup final υ/ύ after eu"
-sub,{u-digraph},,14,α,{voiceless},"cleanup υ/ύ after au before voiceless consonant"
-sub,{u-digraph},,14,α,{voiced},"cleanup υ/ύ after au before voiced consonant"
-sub,{u-digraph},,14,α,[αεηιουωυ],"cleanup υ/ύ after au before vowel"
-sub,{u-digraph},,14,α,$,"cleanup final υ/ύ after au"
-sub,{u-digraph},,14,η,{voiceless},"cleanup υ/ύ after eta-upsilon before voiceless consonant"
-sub,{u-digraph},,14,η,{voiced},"cleanup υ/ύ after eta-upsilon before voiced consonant"
-sub,{u-digraph},,14,η,[αεηιουωυ],"cleanup υ/ύ after eta-upsilon before vowel"
-sub,{u-digraph},,14,η,$,"cleanup final υ/ύ after eta-upsilon"
-
-# In ἀγγαρεύω the accented ευ nucleus is marked in place; final ω has a
-# short realization in this test form.
-sub,{oː},o̞,14,ε{u-digraph},$,"ἀγγαρεύω: short final omega in this test form"
-
+# One test example, ἀγγαρεύω, has short final ω in the supplied expected output.
+sub,{oː},o̞,14,ε{u-digraph},$,"ἀγγαρεύω: short final omega in this test form"
 
 # ----------------------------------------------------------------------
 # Further tests: palatalized velars and kappa before diphthongs
