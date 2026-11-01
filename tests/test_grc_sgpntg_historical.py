@@ -137,6 +137,40 @@ def test_γ_before_bilabial_nasal(grc: str, ipa: str):
     assert ipa == transcribe(grc)
 
 
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("βασιλεύς", "βas̠ilˈɛɸs̠"),
+        ("λάβε", "lˈaβɛ"),
+        ("βιβλίον", "βiβlˈio̞n"),
+    ],
+)
+def test_β(grc: str, ipa: str):
+    """
+    SGPNTG 4.1.2, pg 43
+
+    Generally, β is pronounced as IPA β.
+    """
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("λαμβάνω", "lambˈano̞ː"),
+        ("ἔμβολος", "ˈɛmbo̞lo̞s̠"),
+    ],
+)
+def test_β_after_nasal_consonant(grc: str, ipa: str):
+    """
+    SGPNTG 4.1.2, pg 45
+
+    After a nasal consonant, namely in the sequences (μ)β or (ν)β, β is
+    pronounced as IPA b.
+    """
+    assert ipa == transcribe(grc)
+
+
 # SGPNTG 4.1.5, pg 52
 @pytest.mark.parametrize(
     "grc,ipa",
@@ -210,6 +244,23 @@ def test_ρ(grc: str, ipa: str):
     ],
 )
 def test_σ(grc: str, ipa: str):
+    assert ipa == transcribe(grc)
+
+
+@pytest.mark.parametrize(
+    "grc,ipa",
+    [
+        ("αὐτός", "aɸtˈo̞s̠"),
+        ("εὐθέως", "ɛɸtʰˈɛo̞ːs̠"),
+        ("ηὐχόμην", "eːɸkʰˈo̞meːn"),
+    ],
+)
+def test_αυ_ευ_and_ηυ_before_voiceless_consonants(grc: str, ipa: str):
+    """
+    SGPNTG 4.2.1, pg 80
+
+    Before voiceless consonants and in word-final position, this υ element is pronounced as IPA ɸ
+    """
     assert ipa == transcribe(grc)
 
 

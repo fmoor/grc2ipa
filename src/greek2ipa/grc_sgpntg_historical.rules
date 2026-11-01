@@ -25,7 +25,7 @@ type,sfrom,sto,weight,precede,follow,comment
 # ----------------------------------------------------------------------
 class,front,[ιίυύηῆεέήῃ],,,,
 class,voiced,[βγδζλμνρ],,,,
-class,voiceless,[πκτφθχξψσ],,,,
+class,voiceless,[πκτφθχξψσς],,,,
 class,velar,[γκχξ],,,,
 class,nasal,[μνγ],,,,
 class,sigma,[σς],,,,
@@ -58,12 +58,12 @@ class,xi,[ξ],,,,
 class,gamma,[γ],,,,
 
 # ----------------------------------------------------------------------
-# Accented vowels: acute and circumflex both become ˈ immediately before
+# Accented vowels (including breathing + accent combinations): acute and circumflex become ˈ immediately before
 # the accented vowel nucleus. Syllable-onset placement is a later stage.
 # ----------------------------------------------------------------------
 class,a-acute,[άἄἅ],,,,
 class,a-circ,[ᾶἇ],,,,
-class,e-acute,[έ],,,,
+class,e-acute,[έἔἕ],,,,
 class,eː-acute,[ήἥ],,,,
 class,eː-circ,[ῆἦ],,,,
 class,i-acute,[ίἵ],,,,
@@ -166,6 +166,7 @@ sub,{sigma},z̠,10,,{voiced},"sigma before voiced consonant"
 
 class,i-digraph,[ιίῖ],,,,
 class,u-digraph,[υύ],,,,
+class,u-diphthong-member,[υὐὑύ],,,,
 
 sub,ε,i,12,ζ,{i-digraph},"short ει in ἐγγίζειν"
 sub,ε,ˈiː,12,,[ίῖ],"accented ei, including circumflex iota"
@@ -206,25 +207,25 @@ sub,η,ˈeːβ,13,,[ύ]{voiced},"accented eta-upsilon before voiced consonant"
 sub,η,ˈeːβ,13,,[ύ][αεηιουω],"accented eta-upsilon before vowel"
 sub,η,ˈeːɸ,13,,[ύ]$,"accented eta-upsilon final"
 
-sub,α,aɸ,10,,υ{voiceless},"au before voiceless consonant"
-sub,α,aβ,9,,υ{voiced},"au before voiced consonant"
-sub,α,aβ,9,,υ[αεηιουω],"au before vowel"
-sub,α,aɸ,10,,υ$,"au final"
+sub,α,aɸ,10,,{u-diphthong-member}{voiceless},"au before voiceless consonant"
+sub,α,aβ,9,,{u-diphthong-member}{voiced},"au before voiced consonant"
+sub,α,aβ,9,,{u-diphthong-member}[αεηιουω],"au before vowel"
+sub,α,aɸ,10,,{u-diphthong-member}$,"au final"
 
-sub,ε,ɛɸ,10,,υ{voiceless},"eu before voiceless consonant"
-sub,ε,ɛβ,9,,υ{voiced},"eu before voiced consonant"
-sub,ε,ɛβ,9,,υ[αεηιουω],"eu before vowel"
-sub,ε,ɛɸ,10,,υ$,"eu final"
+sub,ε,ɛɸ,10,,{u-diphthong-member}{voiceless},"eu before voiceless consonant"
+sub,ε,ɛβ,9,,{u-diphthong-member}{voiced},"eu before voiced consonant"
+sub,ε,ɛβ,9,,{u-diphthong-member}[αεηιουω],"eu before vowel"
+sub,ε,ɛɸ,10,,{u-diphthong-member}$,"eu final"
 
-sub,η,eːɸ,10,,υ{voiceless},"eta-upsilon before voiceless consonant"
-sub,η,eːβ,9,,υ{voiced},"eta-upsilon before voiced consonant"
-sub,η,eːβ,9,,υ[αεηιουω],"eta-upsilon before vowel"
-sub,η,eːɸ,10,,υ$,"eta-upsilon final"
+sub,η,eːɸ,10,,{u-diphthong-member}{voiceless},"eta-upsilon before voiceless consonant"
+sub,η,eːβ,9,,{u-diphthong-member}{voiced},"eta-upsilon before voiced consonant"
+sub,η,eːβ,9,,{u-diphthong-member}[αεηιουω],"eta-upsilon before vowel"
+sub,η,eːɸ,10,,{u-diphthong-member}$,"eta-upsilon final"
 
 # Cleanup of the second member of αυ / ευ / ηυ.
-sub,{u-digraph},,14,α,,"cleanup second member of αυ"
-sub,{u-digraph},,14,ε,,"cleanup second member of ευ"
-sub,{u-digraph},,14,η,,"cleanup second member of ηυ"
+sub,{u-diphthong-member},,14,α,,"cleanup second member of αυ"
+sub,{u-diphthong-member},,14,ε,,"cleanup second member of ευ"
+sub,{u-diphthong-member},,14,η,,"cleanup second member of ηυ"
 
 # Plain vowels
 # ----------------------------------------------------------------------
