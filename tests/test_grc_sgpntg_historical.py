@@ -159,6 +159,7 @@ def test_β(grc: str, ipa: str):
     [
         ("λαμβάνω", "lambˈano̞ː"),
         ("ἔμβολος", "ˈɛmbo̞lo̞s̠"),
+        ("σύνβιος", "s̠ˈynbio̞s̠"),
     ],
 )
 def test_β_after_nasal_consonant(grc: str, ipa: str):
